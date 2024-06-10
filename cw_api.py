@@ -213,8 +213,52 @@ class CWSession:
             return payload
         else: 
             print(response.text)
+            #print(response.request.body)
+            raise RuntimeError(response.text)
+        
+    def CreateServicePlan(self,client):
+        return 'Not yet implemented'
+        RequestType = 'Post'.upper()
+        RequestPath = 'CaseWorthy/Client_Create'.lower()
+        RequestBody =  json.dumps(client)
+        Headers = {
+            'Authorization':self.AssembleHMACKey(RequestType,RequestPath,str(RequestBody))
+        }
+        response  = requests.post(
+            self.BaseURL+RequestPath,
+            headers = Headers,
+            data = str(RequestBody)
+        )
+        if response.status_code == 200:
+            payload = json.loads(response.text)
+            return payload
+        else: 
+            print(response.text)
             print(response.request.body)
             raise RuntimeError(response.text)
+        
+
+    def CreateGoal(self,client):
+        return 'Not yet implemented'
+        RequestType = 'Post'.upper()
+        RequestPath = 'CaseWorthy/Client_Create'.lower()
+        RequestBody =  json.dumps(client)
+        Headers = {
+            'Authorization':self.AssembleHMACKey(RequestType,RequestPath,str(RequestBody))
+        }
+        response  = requests.post(
+            self.BaseURL+RequestPath,
+            headers = Headers,
+            data = str(RequestBody)
+        )
+        if response.status_code == 200:
+            payload = json.loads(response.text)
+            return payload
+        else: 
+            print(response.text)
+            print(response.request.body)
+            raise RuntimeError(response.text)
+
         
     def ClientTests(self, testclient):       
         try:
@@ -273,10 +317,10 @@ class CWObjects:
         }
         return client
     
-    def CWEnrollment(self):
+    def CWEnrollment():
         enrollment = {
-            'CurrentProviderID': None,
-            'CurrentOrganizationID': None,
+            'currentProviderID': None,
+            'currentOrganizationID': None,
             'AccountID': None, 
             'BeginDate': None, 
             'EndDate': None, 
@@ -299,7 +343,7 @@ class CWObjects:
         }
         return enrollment
     
-    def CWEnrollmentMember(self):
+    def CWEnrollmentMember():
         enrollmentmember = {
                 'ClientID': None, 
                 'Alt_ClientID': None, 
@@ -310,3 +354,140 @@ class CWObjects:
                 'EnrollmentMemberHMIS': None
         }
         return enrollmentmember
+    
+    def CWServicePlan():
+        serviceplan = {
+                "currentOrganizationID": None,
+                "currentProviderID": None,
+                "alt_ID": None,
+                "customFields": [
+                    {
+                    "name": "string",
+                    "value": "string"
+                    }
+                ],
+                "enrollmentID": None,
+                "alt_EnrollmentID": None,
+                "clientID": None,
+                "alt_ClientID": None,
+                "planTypeID": None,
+                "planBeginDate": None,
+                "planEndDate": None,
+                "actualCompletedDate": None,
+                "description": None,
+                "percentComplete": 0,
+                "caseManagerID": None,
+                "familyOrIndividual": 1,
+                "contextID": None,
+                "contextTypeID": None
+                }
+        return serviceplan
+        
+    def CWGoal():
+        goal = {
+                "currentOrganizationID": None,
+                "currentProviderID": None,
+                "alt_ID": None,
+                "customFields": [
+                    {
+                    "name": "string",
+                    "value": "string"
+                    }
+                ],
+                "tableInfo": {
+                    "foreignKey": {},
+                    "primaryKey": {}
+                },
+                "clientID": None,
+                "alt_ClientID": None,
+                "goalTypeID": None,
+                "planAttainDate": None,
+                "actualAttainDate": None,
+                "setDate": None,
+                "caseNoteID": None,
+                "percentComplete": 0,
+                "userID": None,
+                "alt_UserID": None,
+                "responsibleParty": 0,
+                "weight": 100,
+                "typeID": None,
+                "tierLevelSupport": None,
+                "contextTypeID": None,
+                "contextID": None,
+                "providedByEntityID": None,
+                "isClientInvolved": 1,
+                "servicePlanGoals": {
+                    "id": 0,
+                    "currentOrganizationID": 0,
+                    "currentProviderID": 0,
+                    "alt_ID": "string",
+                    "customFields": [
+                    {
+                        "name": "string",
+                        "value": "string"
+                    }
+                    ],
+                    "tableInfo": {
+                    "foreignKey": {},
+                    "primaryKey": {}
+                    },
+                    "goalID": 0,
+                    "priority": 0,
+                    "weight": 0,
+                    "enrollmentServicePlanID": 0,
+                    "alt_EnrollmentServicePlanID": "string"
+                },
+                "clientGoalSteps": [
+                    {
+                    "id": 0,
+                    "currentOrganizationID": 0,
+                    "currentProviderID": 0,
+                    "alt_ID": "string",
+                    "customFields": [
+                        {
+                        "name": "string",
+                        "value": "string"
+                        }
+                    ],
+                    "tableInfo": {
+                        "foreignKey": {},
+                        "primaryKey": {}
+                    },
+                    "stepSetDate": "2024-06-10T15:46:15.697Z",
+                    "goalID": 0,
+                    "goalStepTypeID": 0,
+                    "status": 0,
+                    "stepTargetDate": "2024-06-10T15:46:15.697Z",
+                    "stepCompletionDate": "2024-06-10T15:46:15.697Z",
+                    "responsibleParty": 0,
+                    "percentComplete": 0,
+                    "weight": 0,
+                    "typeID": 0,
+                    "target": "string",
+                    "createdFormID": 0,
+                    "lastModifiedFormID": 0,
+                    "clientGoalStepExt": {
+                        "id": 0,
+                        "currentOrganizationID": 0,
+                        "currentProviderID": 0,
+                        "alt_ID": "string",
+                        "customFields": [
+                        {
+                            "name": "string",
+                            "value": "string"
+                        }
+                        ],
+                        "tableInfo": {
+                        "foreignKey": {},
+                        "primaryKey": {}
+                        },
+                        "description": "string",
+                        "serviceTypeID": 0,
+                        "hourBudget": 0,
+                        "frequency": 0,
+                        "accountID": 0
+                    }
+                    }
+                ]
+                }
+        return goal
